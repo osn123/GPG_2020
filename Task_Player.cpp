@@ -102,6 +102,7 @@ void Object::Think() {
     case Motion::Walk:  // 歩いている
       if (inp.LStick.BL.off && inp.LStick.BR.off) nm = Motion::Stand;
       if (inp.B1.down) nm = Motion::Jump;
+      if (this->CheckFoot() == false) nm = Motion::Fall;  // 足元 障害　無し
       break;
 
     case Motion::Jump:           // 上昇中
@@ -155,11 +156,11 @@ void Object::Move() {
     default:
       if (this->moveVec.x < 0) {
         this->moveVec.x = min(this->moveVec.x + this->decSpeed, 0);
-	  } else {
+      } else {
         this->moveVec.x = max(this->moveVec.x - this->decSpeed, 0);
       }
 
-        break;
+      break;
       // 移動速度減衰を無効化する必要があるモーションは下にcaseを書く（現在対象無し）
     case Motion::Jump:
       if (this->moveCnt == 0) {
@@ -169,12 +170,12 @@ void Object::Move() {
   }
   //-----------------------------------------------------------------
   // モーション毎に固有の処理
-  auto inp = this->controller->GetState();  // 入力状態を取得
+  auto inp = this->controller->GetState();  // TODO:入力状態を取得
   switch (this->motion) {
     case Motion::Stand:  // 立っている
       break;
-    case Motion::Walk:         // 歩いている
-      if (inp.LStick.BL.on) {  // TODO:
+    case Motion::Walk:  // 歩いている
+      if (inp.LStick.BL.on) {
         this->angle_LR = Angle_LR::Left;
         this->moveVec.x = -this->maxSpeed;
       } else if (inp.LStick.BR.on) {
@@ -183,9 +184,18 @@ void Object::Move() {
       }
       break;
     case Motion::Fall:  // 落下中
+      if (inp.LStick.BL.on) {
+        this->moveVec.x = -this->maxSpeed;
+      } else if (inp.LStick.BR.on) {
+        this->moveVec.x = this->maxSpeed;
+      }
       break;
     case Motion::Jump:  // 上昇中
-
+      if (inp.LStick.BL.on) {
+        this->moveVec.x = -this->maxSpeed;
+      } else if (inp.LStick.BR.on) {
+        this->moveVec.x = this->maxSpeed;
+      }
       break;
     case Motion::Attack:  // 攻撃中
       break;
