@@ -152,8 +152,13 @@ void Object::Move() {
   // 移動速度減衰
   switch (this->motion) {
     default:
-      // 未実装
-      break;
+      if (this->moveVec.x < 0) {
+        this->moveVec.x = min(this->moveVec.x + this->decSpeed, 0);
+	  } else {
+        this->moveVec.x = max(this->moveVec.x - this->decSpeed, 0);
+      }
+
+        break;
       // 移動速度減衰を無効化する必要があるモーションは下にcaseを書く（現在対象無し）
     case Motion::Jump:
       if (this->moveCnt == 0) {
@@ -163,17 +168,18 @@ void Object::Move() {
   }
   //-----------------------------------------------------------------
   // モーション毎に固有の処理
+  auto inp = this->controller->GetState();  // 入力状態を取得
   switch (this->motion) {
     case Motion::Stand:  // 立っている
       break;
-    case Motion::Walk:  // 歩いている
-      if (inp.lstick.bl.on) {// TODO:
-		this->angle_LR = Angle_LR::Left;
-		this->moveVec.x = -this->maxSpeed;
-        } else if (inp.lstick.br.on) {
-		this->angle_LR = Angle_LR::Right;
-		this->moveVec.x = this->maxSpeed;
-        } 
+    case Motion::Walk:         // 歩いている
+      if (inp.LStick.BL.on) {  // TODO:
+        this->angle_LR = Angle_LR::Left;
+        this->moveVec.x = -this->maxSpeed;
+      } else if (inp.LStick.BR.on) {
+        this->angle_LR = Angle_LR::Right;
+        this->moveVec.x = this->maxSpeed;
+      }
       break;
     case Motion::Fall:  // 落下中
       break;
