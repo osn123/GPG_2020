@@ -40,7 +40,7 @@ bool Object::Initialize() {
   this->motion = Motion::Stand;  // キャラ初期状態
   this->maxSpeed = 5.0f;         // 最大移動速度（横）
   this->addSpeed = 1.0f;  // 歩行加速度（地面の影響である程度打ち消される
-  this->decSpeed = 0.5f;       // 接地状態の時の速度減衰量（摩擦
+  this->decSpeed = 0.5f;       // hack 接地状態の時の速度減衰量（摩擦
   this->maxFallSpeed = 10.0f;  // 最大落下速度
   this->jumpPow = -10.0f;      // ジャンプ力（初速）
   this->gravity = ML::Gravity(32) * 5;  // 重力加速度＆時間速度による加算量
@@ -95,18 +95,18 @@ void Object::Think() {
     case Motion::Stand:  // 立っている
       if (inp.LStick.BL.on) nm = Motion::Walk;
       if (inp.LStick.BR.on) nm = Motion::Walk;
-      if (inp.B1.down) nm = Motion::Jump;
+      if (inp.B1.down) nm = Motion::TakeOff;
       if (this->CheckFoot() == false) nm = Motion::Fall;  // 足元 障害　無し
       break;
 
     case Motion::Walk:  // 歩いている
       if (inp.LStick.BL.off && inp.LStick.BR.off) nm = Motion::Stand;
-      if (inp.B1.down) nm = Motion::Jump;
+      if (inp.B1.down) nm = Motion::TakeOff;
       if (this->CheckFoot() == false) nm = Motion::Fall;  // 足元 障害　無し
       break;
 
     case Motion::Jump:           // 上昇中
-      if (this->moveVec.y >= 0)  // TODO:: p20
+      if (this->moveVec.y >= 0)  
       {
         nm = Motion::Fall;
       }
@@ -114,15 +114,19 @@ void Object::Think() {
 
     case Motion::Fall:  // 落下中
       if (this->CheckFoot() == true) {
-        nm = Motion::Stand;
+        nm = Motion::Landing;
       }
       break;
 
     case Motion::Attack:  // 攻撃中
       break;
     case Motion::TakeOff:  // 飛び立ち
+      if (this->moveCnt >= 3) nm = Motion::Jump;
+      if (this->CheckFoot() == false) nm = Motion::Fall;  // 足元 障害　無し
       break;
     case Motion::Landing:  // 着地
+      if (this->moveCnt >= 3) nm = Motion::Stand;
+      if (this->CheckFoot() == false) nm = Motion::Fall;  // 足元 障害　無し
       break;
   }
   // モーション更新
@@ -248,6 +252,10 @@ BChara::DrawInfo Object::Anim() {
       //	落下----------------------------------------------------------------------------
     case Motion::Fall:
       rtv = imageTable[5];
+      break;
+      //	飛び立つ直前--------------------------------------------------------------------
+    case Motion::TakeOff:
+      rtv = imageTable[6];
       break;
   }
   //	向きに応じて画像を左右反転する
