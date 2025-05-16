@@ -101,6 +101,7 @@ void Object::Think() {
 
     case Motion::Walk:  // ï‡Ç¢ÇƒÇ¢ÇÈ
       if (inp.LStick.BL.off && inp.LStick.BR.off) nm = Motion::Stand;
+      if (inp.B1.down) nm = Motion::Jump;
       break;
 
     case Motion::Jump:           // è„è∏íÜ
