@@ -191,6 +191,8 @@ void Object::Move() {
       }
       break;
     case Motion::Jump:  // ã¸’†
+      if (this->CheckHead()) moveVec.y = 0;
+
       if (inp.LStick.BL.on) {
         this->moveVec.x = -this->maxSpeed;
       } else if (inp.LStick.BR.on) {
