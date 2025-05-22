@@ -183,6 +183,14 @@ namespace Enemy00 {
 			}
 			break;
 		case Motion::Fall:  // —‰º’†
+			if (this->angle_LR == Angle_LR::Left) {
+				this->moveVec.x =
+					max(-this->maxSpeed, this->moveVec.x - this->addSpeed);
+			}
+			if (this->angle_LR == Angle_LR::Right) {
+				this->moveVec.x =
+					min(+this->maxSpeed, this->moveVec.x + this->addSpeed);
+			}
 			break;
 		case Motion::Jump:  // ã¸’†
 			break;
