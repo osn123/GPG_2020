@@ -65,6 +65,10 @@ public:
 		, maxSpeed(0)
 		, addSpeed(0)
 		, decSpeed(0)
+		, animCnt(0)
+		, preMoveCnt(0)
+		, preMotion(Motion::Stand)
+
 	{
 	}
 	virtual  ~BChara() {}
