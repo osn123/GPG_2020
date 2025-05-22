@@ -9,6 +9,7 @@
 #include  "Task_Effect00.h"
 #include "Task_Shot00.h"
 #include  "Task_Sprite.h"
+#include  "Task_Enemy00.h"
 
 
 namespace  Game
@@ -51,6 +52,13 @@ namespace  Game
 		auto  spr = Sprite::Object::Create(true);
 		spr->pos = pl->pos;
 		spr->target = pl;
+
+		//“G‚Ì¶¬ 
+		for (int c = 0; c < 6; ++c) {
+			auto  ene = Enemy00::Object::Create(true);
+			ene->pos.x = 500 + c * 100;
+			ene->pos.y = 80;
+		}
 
 		return  true;
 	}

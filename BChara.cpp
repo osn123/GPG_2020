@@ -43,13 +43,13 @@ bool  BChara::CheckHead()
 }
 //-----------------------------------------------------------------------------
 //めり込まない移動処理
-void BChara::CheckMove(ML::Vec2&  e_)
+void BChara::CheckMove(ML::Vec2& e_)
 {
 	//マップが存在するか調べてからアクセス
 	auto   map = ge->GetTask<Map2D::Object>(Map2D::defGroupName, Map2D::defName);
 	if (nullptr == map) { return; }//マップが無ければ判定しない(出来ない）
 
-   //横軸に対する移動
+	//横軸に対する移動
 	while (e_.x != 0) {
 		float  preX = this->pos.x;
 		if (e_.x >= 1) { this->pos.x += 1;		e_.x -= 1; }
@@ -91,3 +91,25 @@ bool  BChara::CheckFoot()
 	return map->CheckHit(foot);
 }
 
+//正面接触判定（サイドビューゲーム専用） 
+bool  BChara::CheckFront_LR()
+{
+	//あたり判定を基にして矩形を生成(とりあえず、横幅だけ１になった矩形を用意する) 
+	ML::Box2D  front(
+		this->hitBase.x,
+		hitBase.y,
+		1,
+		this->hitBase.h);
+	//キャラクタの向きにより矩形の位置を調整 
+	if (this->angle_LR == Angle_LR::Left) {
+		front.Offset(-1, 0); //左側に移動 
+	}
+	else {
+		front.Offset(this->hitBase.w, 0); //右側に移動 
+	}
+	//現在位置に合わせる 
+	front.Offset((int)this->pos.x, (int)this->pos.y);
+	auto   map = ge->GetTask<Map2D::Object>(Map2D::defGroupName, Map2D::defName);
+	if (nullptr == map) { return false; }//マップが無ければ判定しない(出来ない） 
+	return map->CheckHit(front);
+}

@@ -36,6 +36,7 @@ public:
 		Fall,		//	落下
 		TakeOff,	//	飛び立つ瞬間
 		Landing,	//	着地
+		Turn,
 	};
 	Motion			motion;			//	現在の行動を示すフラグ
 	Motion			preMotion;			//	前の行動を示すフラグ
@@ -77,6 +78,9 @@ public:
 	virtual  bool  CheckHead();
 	//モーションを更新（変更なしの場合	false)
 	bool  UpdateMotion(Motion  nm_);
+
+	//正面接触判定（サイドビューゲーム専用） 
+	virtual  bool  CheckFront_LR();
 
 	//	アニメーション情報構造体
 	struct DrawInfo {

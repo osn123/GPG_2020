@@ -1,0 +1,22 @@
+if>ev_flag,テスト変数02 == 0,１回目
+if>ev_flag,テスト変数02 == 1,２回目
+if>ev_flag,テスト変数02 >  1,３回目以降
+
+label>１回目
+flag>テスト変数02 + 1
+msg>通常枠,100,イベントファイル0005に移ります。
+fileset>./data/event/event0005.txt
+
+label>２回目
+flag>テスト変数02 + 1
+msg>通常枠,100,イベントファイル0006に移ります。
+fileset>./data/event/event0006.txt
+
+label>３回目以降
+flag>テスト変数02 + 1
+msg>通常枠,100,イベントファイル0007に移ります。
+fileset>./data/event/event0007.txt
+
+
+
+

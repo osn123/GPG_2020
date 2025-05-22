@@ -1,0 +1,9 @@
+msg>通常枠,100,フェードアウト中にマップを変更し、*プレイヤの座標を変更します
+fade_io>./data/image/FadeImage.bmp
+msg>通常枠,0,off
+map>./data/Map/Map4.txt
+chara>プレイヤ,仮,posX = 100,posY = 1157
+chara>オプション,妖精？,posX = 100,posY = 1157
+fade_io>in
+end>
+

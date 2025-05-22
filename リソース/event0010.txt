@@ -1,0 +1,26 @@
+if>ev_flag,ポーション飲んだ回数 == 0,１回目
+if>ev_flag,ポーション飲んだ回数 == 1,２回目
+if>ev_flag,ポーション飲んだ回数 >  1,３回目以降
+label>１回目
+evimg>Player,./data/image/プレイヤ立ちえ（通常）.png,L
+msg>通常枠,100,ポーションを飲んだ。
+msg>通常枠,100,HPが10ポイント回復した***　　　　　　　　気がした・・・
+msg>通常枠,0,off
+evimg>Player,off
+flag>ポーション飲んだ回数 + 1
+end>
+label>２回目
+evimg>Player,./data/image/プレイヤ立ちえ（笑う）.png,CX
+msg>通常枠,100,もう一度ポーションを飲んでみた。
+msg>通常枠,100,やはりHPは回復しなかった。
+msg>通常枠,0,off
+evimg>Player,off
+flag>ポーション飲んだ回数 + 1
+end>
+label>３回目以降
+evimg>Player,./data/image/プレイヤ立ちえ（怒る）.png,RXY
+msg>通常枠,100,懲りずにポーションを飲んだ。
+msg>通常枠,100,飲みすぎで気分が悪くなった。
+msg>通常枠,0,off
+evimg>Player,off
+end>
