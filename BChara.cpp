@@ -15,6 +15,9 @@ bool  BChara::UpdateMotion(Motion  nm_)
 		return  false;
 	}
 	else {
+		this->preMotion = this->motion;
+		this->preMoveCnt = this->moveCnt;
+
 		this->motion = nm_;		//モーション変更
 		this->moveCnt = 0;		//行動カウンタクリア
 		this->animCnt = 0;		//アニメーションカウンタのクリア

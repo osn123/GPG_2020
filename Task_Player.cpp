@@ -121,7 +121,8 @@ void Object::Think() {
     case Motion::Attack:  // 攻撃中
       break;
     case Motion::TakeOff:  // 飛び立ち
-      if (this->moveCnt >= 3) nm = Motion::Jump;
+        if (inp.B1.up) nm = Motion::Jump;
+        if (this->moveCnt >= 30) nm = Motion::Jump;
       if (this->CheckFoot() == false) nm = Motion::Fall;  // 足元 障害　無し
       break;
     case Motion::Landing:  // 着地
@@ -168,7 +169,7 @@ void Object::Move() {
       // 移動速度減衰を無効化する必要があるモーションは下にcaseを書く（現在対象無し）
     case Motion::Jump:
       if (this->moveCnt == 0) {
-        this->moveVec.y = this->jumpPow;
+        this->moveVec.y = this->jumpPow+(-preMoveCnt/10);
       }
       break;
   }

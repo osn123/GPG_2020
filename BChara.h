@@ -19,6 +19,7 @@ public:
 	ML::Box2D   hitBase;	//あたり判定範囲
 	ML::Vec2	moveVec;	//移動ベクトル
 	int			moveCnt;	//行動カウンタ
+	int			preMoveCnt;	//行動カウンタ
 	//左右の向き（2D横視点ゲーム専用）
 	enum class Angle_LR { Left, Right };
 	Angle_LR	angle_LR;
@@ -37,6 +38,7 @@ public:
 		Landing,	//	着地
 	};
 	Motion			motion;			//	現在の行動を示すフラグ
+	Motion			preMotion;			//	前の行動を示すフラグ
 	int				animCnt;		//アニメーションカウンタ
 	float			jumpPow;		//	ジャンプ初速
 	float			maxFallSpeed;	//	落下最大速度
