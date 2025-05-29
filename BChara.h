@@ -48,6 +48,7 @@ public:
 	float			addSpeed;		//	¶‰E•ûŒü‚Ö‚ÌˆÚ“®‚Ì‰ÁZ—Ê
 	float			decSpeed;		//	¶‰E•ûŒü‚Ö‚ÌˆÚ“®‚ÌŒ¸Š—Ê
 	int hp;
+	int unHitTime;
 
 
 
@@ -70,6 +71,7 @@ public:
 		, preMoveCnt(0)
 		, preMotion(Motion::Stand)
 		, hp(1)
+		, unHitTime(0)
 
 	{
 	}

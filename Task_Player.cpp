@@ -65,6 +65,10 @@ bool Object::Finalize() {
 void Object::UpDate() {
   this->moveCnt++;
   this->animCnt++;
+  if (this->unHitTime>0)
+  {
+      this->unHitTime--;
+  }
   // 思考・状況判断
   this->Think();
   // 現モーションに対応した制御
@@ -76,6 +80,11 @@ void Object::UpDate() {
 //-------------------------------------------------------------------
 // 「２Ｄ描画」１フレーム毎に行う処理
 void Object::Render2D_AF() {
+    if (this->unHitTime > 0) {
+        if ((this->unHitTime / 4) % 2 == 0) {
+            return;//
+        }
+    }
   BChara::DrawInfo di = this->Anim();
   di.draw.Offset(this->pos);
   // スクロール対応
@@ -268,6 +277,11 @@ BChara::DrawInfo Object::Anim() {
 }
 
 void Object::Received(BChara* from_, AttackInfo at_) {
+    if (this->unHitTime>0)
+    {
+        return;//
+    }
+    this->unHitTime = 400;
     this->hp -= at_.power;//仮処理
     if (this->hp<=0)
     {
