@@ -44,7 +44,7 @@ bool Object::Initialize() {
   this->maxFallSpeed = 10.0f;  // 最大落下速度
   this->jumpPow = -10.0f;      // ジャンプ力（初速）
   this->gravity = ML::Gravity(32) * 5;  // 重力加速度＆時間速度による加算量
-
+  this->hp=10;  // 
   // ★タスクの生成
 
   return true;

@@ -43,6 +43,7 @@ namespace Enemy00 {
 		this->maxFallSpeed = 10.0f;  // 最大落下速度
 		this->jumpPow = -6.0f;      // ジャンプ力（初速）
 		this->gravity = ML::Gravity(32) * 5;  // 重力加速度＆時間速度による加算量
+		this->hp = 20;  // 
 
 		// ★タスクの生成
 
@@ -71,6 +72,22 @@ namespace Enemy00 {
 		// めり込まない移動
 		ML::Vec2 est = this->moveVec;
 		this->CheckMove(est);
+		//当たり判定
+		{
+			ML::Box2D me = this->hitBase.OffsetCopy(this->pos);
+			auto targets = ge->GetTasks<BChara>("プレイヤ");
+			for (auto it = targets->begin(); it != targets->end();++it)
+			{
+//
+				if ((*it)->CheckHit(me))
+				{
+					//
+					BChara::AttackInfo at = { 1,0,0 };
+					(*it)->Received(this, at);
+					break;
+				}
+			}
+		}
 	}
 	//-------------------------------------------------------------------
 	// 「２Ｄ描画」１フレーム毎に行う処理
