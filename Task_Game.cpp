@@ -10,6 +10,7 @@
 #include "Task_Shot00.h"
 #include  "Task_Sprite.h"
 #include  "Task_Enemy00.h"
+#include  "Task_Item00.h"
 
 
 namespace  Game
@@ -58,6 +59,13 @@ namespace  Game
 			auto  ene = Enemy00::Object::Create(true);
 			ene->pos.x = 500 + c * 100;
 			ene->pos.y = 80;
+		}
+
+		//アイテムの仮配置
+		for (int c = 0; c < 3; ++c) {
+			auto  item = Item00::Object::Create(true);
+			item->pos.x = 100.0f + c * 100;
+			item->pos.y = 80;
 		}
 
 		return  true;

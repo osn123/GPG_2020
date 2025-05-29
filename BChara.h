@@ -38,6 +38,7 @@ public:
 		Landing,	//	着地
 		Turn, //
 		Bound, //
+		Lose, //
 	};
 	Motion			motion;			//	現在の行動を示すフラグ
 	Motion			preMotion;			//	前の行動を示すフラグ
