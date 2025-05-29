@@ -113,3 +113,14 @@ bool  BChara::CheckFront_LR()
 	if (nullptr == map) { return false; }//マップが無ければ判定しない(出来ない） 
 	return map->CheckHit(front);
 }
+
+void BChara::Received(BChara* from_, AttackInfo at_) {
+	ML::MsgBox("Received 実装されていません");
+}
+
+bool BChara::CheckHit(const ML::Box2D& hit_) {
+	ML::Box2D me = this->hitBase.OffsetCopy(this->pos);
+	return me.Hit(hit_);
+ }
+
+

@@ -47,6 +47,7 @@ public:
 	float			maxSpeed;		//	左右方向への移動の加算量
 	float			addSpeed;		//	左右方向への移動の加算量
 	float			decSpeed;		//	左右方向への移動の減衰量
+	int hp;
 
 
 
@@ -68,6 +69,7 @@ public:
 		, animCnt(0)
 		, preMoveCnt(0)
 		, preMotion(Motion::Stand)
+		, hp(1)
 
 	{
 	}
@@ -75,7 +77,7 @@ public:
 
 	//キャラクタ共通メソッド
 	//めり込まない移動処理
-	virtual  void  CheckMove(ML::Vec2&  est_);
+	virtual  void  CheckMove(ML::Vec2& est_);
 	//足元接触判定
 	bool  CheckFoot();
 	//頭上接触判定
@@ -90,5 +92,15 @@ public:
 	struct DrawInfo {
 		ML::Box2D		draw, src;
 		ML::Color		color;
+	}; 
+
+	struct AttackInfo {
+		int power;
+		int hit;
+		int element;
 	};
+
+	virtual void Received(BChara* from_, AttackInfo at_);
+	virtual bool CheckHit(const ML::Box2D& hit_);
+
 };

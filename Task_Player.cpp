@@ -266,6 +266,15 @@ BChara::DrawInfo Object::Anim() {
   }
   return rtv;
 }
+
+void Object::Received(BChara* from_, AttackInfo at_) {
+    this->hp -= at_.power;//仮処理
+    if (this->hp<=0)
+    {
+        this->Kill();
+    }
+}
+
 // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 // 以下は基本的に変更不要なメソッド
 // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
