@@ -76,6 +76,22 @@ namespace Player {
 		// めり込まない移動
 		ML::Vec2 est = this->moveVec;
 		this->CheckMove(est);
+		//当たり判定
+		{
+			ML::Box2D me = this->hitBase.OffsetCopy(this->pos);
+			auto targets = ge->GetTasks<BChara>("アイテム");
+			for (auto it = targets->begin(); it != targets->end(); ++it)
+			{
+				//
+				if ((*it)->CheckHit(me))
+				{
+					//
+					BChara::AttackInfo at = { 0,0,0 };
+					(*it)->Received(this, at);
+					break;
+				}
+			}
+		}
 	}
 	//-------------------------------------------------------------------
 	// 「２Ｄ描画」１フレーム毎に行う処理

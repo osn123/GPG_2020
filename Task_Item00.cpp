@@ -54,7 +54,7 @@ namespace Item00 {
 		this->moveCnt++;
 		this->animCnt++;
 
-		if (this->unHitTime>0)
+		if (this->unHitTime > 0)
 		{
 			this->unHitTime--;
 		}
@@ -65,14 +65,14 @@ namespace Item00 {
 			break;
 		case Motion::Lose:
 			this->pos.y -= 3;
-			if (this->moveCnt>20)
+			if (this->moveCnt > 20)
 			{
 				this->Kill();//
 			}
 			break;
 		default:
 			break;
-		}		
+		}
 	}
 	//-------------------------------------------------------------------
 	// 「２Ｄ描画」１フレーム毎に行う処理
@@ -94,6 +94,14 @@ namespace Item00 {
 		return imageTable[0];
 	}
 
+	void Object::Received(BChara* from_, AttackInfo at_) {
+		if (this->motion!=Motion::Stand)
+		{
+			return;
+		}
+		this->UpdateMotion(Motion::Lose);
+		from_->hp += 5;
+	}
 
 	// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 // 以下は基本的に変更不要なメソッド

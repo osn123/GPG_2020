@@ -28,7 +28,7 @@ namespace  Player
 	//-------------------------------------------------------------------
 	class  Object : public  BChara
 	{
-	//変更不可◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
+		//変更不可◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆◆
 	public:
 		virtual  ~Object();
 		typedef  shared_ptr<Object>		SP;
@@ -44,7 +44,7 @@ namespace  Player
 		void  UpDate()			override;//「実行」１フレーム毎に行う処理
 		void  Render2D_AF()		override;//「2D描画」１フレーム毎に行う処理
 		bool  Finalize();		//「終了」タスク消滅時に１回だけ行う処理
-	//変更可◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
+		//変更可◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
 	public:
 		//追加したい変数・メソッドはここに追加する
 		//BCharaに持たせていない変数・メソッドのみここに書く
@@ -57,7 +57,7 @@ namespace  Player
 		//アニメーション制御
 		BChara::DrawInfo  Anim();
 
-		 void Received(BChara* from_, AttackInfo at_) override;
+		void Received(BChara* from_, AttackInfo at_) override;
 
 	};
 }
