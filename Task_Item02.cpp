@@ -102,7 +102,7 @@ namespace Item02 {
 			return;
 		}
 		this->UpdateMotion(Motion::Lose);
-		from_->hp -= 5;
+		from_->unHitTime = 300;
 	}
 
 	// šššššššššššššššššššššššššššššššššššššššššš

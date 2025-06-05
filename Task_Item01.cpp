@@ -102,7 +102,7 @@ namespace Item01 {
 			return;
 		}
 		this->UpdateMotion(Motion::Lose);
-		from_->hp -= 3;
+		from_->jumpPow -= 1;
 	}
 
 	// šššššššššššššššššššššššššššššššššššššššššš
