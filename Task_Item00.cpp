@@ -65,7 +65,7 @@ namespace Item00 {
 			break;
 		case Motion::Lose:
 			this->pos.y -= 3;
-			alpha = 0.3f; // 30%の不透明度
+			alpha = 0.3f;
 			if (this->moveCnt > 20)
 			{
 				this->Kill();//
@@ -83,15 +83,17 @@ namespace Item00 {
 		// スクロール対応
 		di.draw.Offset(-ge->camera2D.x, -ge->camera2D.y);
 
-		this->res->img->Draw(di.draw, di.src);
+		this->res->img->Draw(di.draw, di.src,di.color);
+
 	}
 	//-----------------------------------------------------------------------------
 	// アニメーション制御
 	BChara::DrawInfo  Object::Anim()
 	{
+
+
 		BChara::DrawInfo imageTable[] = {
-		 {ML::Box2D(-16, -16, 32, 32),ML::Box2D(0, 0, 32, 32),ML::Color(0,0,0,0)},//
-		 //ML::Color(1,1,1,1) },
+		 {ML::Box2D(-16, -16, 32, 32),ML::Box2D(0, 0, 32, 32),ML::Color(alpha,1,1,1)},// 
 		};
 		return imageTable[0];
 	}
