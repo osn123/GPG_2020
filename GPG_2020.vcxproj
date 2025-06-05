@@ -141,6 +141,8 @@
     <ClCompile Include="Task_Enemy00.cpp" />
     <ClCompile Include="Task_Game.cpp" />
     <ClCompile Include="Task_Item00.cpp" />
+    <ClCompile Include="Task_Item01.cpp" />
+    <ClCompile Include="Task_Item02.cpp" />
     <ClCompile Include="Task_Map2D.cpp" />
     <ClCompile Include="Task_Player.cpp" />
     <ClCompile Include="Task_Shot00.cpp" />
@@ -172,6 +174,8 @@
     <ClInclude Include="Task_Enemy00.h" />
     <ClInclude Include="Task_Game.h" />
     <ClInclude Include="Task_Item00.h" />
+    <ClInclude Include="Task_Item01.h" />
+    <ClInclude Include="Task_Item02.h" />
     <ClInclude Include="Task_Map2D.h" />
     <ClInclude Include="Task_Player.h" />
     <ClInclude Include="Task_Shot00.h" />

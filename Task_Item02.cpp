@@ -1,7 +1,7 @@
 //-------------------------------------------------------------------
-// アイテム００（ポーション）
+// アイテム０2（ポーション）
 //-------------------------------------------------------------------
-#include "Task_Item00.h"
+#include "Task_Item02.h"
 
 #include "MyPG.h"
 #include "Task_Effect00.h"
@@ -9,7 +9,7 @@
 #include "Task_Shot00.h"
 #include "Task_Shot01.h"
 
-namespace Item00 {
+namespace Item02 {
 	Resource::WP Resource::instance;
 	//-------------------------------------------------------------------
 	// リソースの初期化
@@ -91,7 +91,7 @@ namespace Item00 {
 	BChara::DrawInfo  Object::Anim()
 	{
 		BChara::DrawInfo imageTable[] = {
-		 {ML::Box2D(-16, -16, 32, 32),ML::Box2D(0, 0, 32, 32),ML::Color(alpha,1,1,1)},// 
+		 {ML::Box2D(-16, -16, 32, 32),ML::Box2D(0, 0, 32, 32),ML::Color(alpha,1,1,0)},// 
 		};
 		return imageTable[0];
 	}
@@ -102,7 +102,7 @@ namespace Item00 {
 			return;
 		}
 		this->UpdateMotion(Motion::Lose);
-		from_->hp += 5;
+		from_->hp -= 5;
 	}
 
 	// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★

@@ -1,7 +1,7 @@
 //-------------------------------------------------------------------
-// アイテム００（ポーション）
+// アイテム０1（ポーション）
 //-------------------------------------------------------------------
-#include "Task_Item00.h"
+#include "Task_Item01.h"
 
 #include "MyPG.h"
 #include "Task_Effect00.h"
@@ -9,7 +9,7 @@
 #include "Task_Shot00.h"
 #include "Task_Shot01.h"
 
-namespace Item00 {
+namespace Item01 {
 	Resource::WP Resource::instance;
 	//-------------------------------------------------------------------
 	// リソースの初期化
@@ -83,7 +83,7 @@ namespace Item00 {
 		// スクロール対応
 		di.draw.Offset(-ge->camera2D.x, -ge->camera2D.y);
 
-		this->res->img->Draw(di.draw, di.src,di.color);
+		this->res->img->Draw(di.draw, di.src, di.color);
 
 	}
 	//-----------------------------------------------------------------------------
@@ -91,18 +91,18 @@ namespace Item00 {
 	BChara::DrawInfo  Object::Anim()
 	{
 		BChara::DrawInfo imageTable[] = {
-		 {ML::Box2D(-16, -16, 32, 32),ML::Box2D(0, 0, 32, 32),ML::Color(alpha,1,1,1)},// 
+		 {ML::Box2D(-16, -16, 32, 32),ML::Box2D(0, 0, 32, 32),ML::Color(alpha,1,0,1)},// 
 		};
 		return imageTable[0];
 	}
 
 	void Object::Received(BChara* from_, AttackInfo at_) {
-		if (this->motion!=Motion::Stand)
+		if (this->motion != Motion::Stand)
 		{
 			return;
 		}
 		this->UpdateMotion(Motion::Lose);
-		from_->hp += 5;
+		from_->hp -= 3;
 	}
 
 	// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★

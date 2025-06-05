@@ -11,6 +11,8 @@
 #include  "Task_Sprite.h"
 #include  "Task_Enemy00.h"
 #include  "Task_Item00.h"
+#include  "Task_Item01.h"
+#include  "Task_Item02.h"
 
 
 namespace  Game
@@ -63,10 +65,24 @@ namespace  Game
 
 		//アイテムの仮配置
 		for (int c = 0; c < 3; ++c) {
-			auto  item = Item00::Object::Create(true);
-			item->pos.x = 100.0f + c * 100;
-			item->pos.y = 80;
+			if (c == 0) {
+				auto  item = Item00::Object::Create(true);
+				item->pos.x = 100.0f + c * 100;
+				item->pos.y = 80;
+			}
+
+			if (c == 1) {
+				auto  item = Item01::Object::Create(true);
+				item->pos.x = 100.0f + c * 100;
+				item->pos.y = 80;
+			}
+			if (c == 2) {
+				auto  item = Item02::Object::Create(true);
+				item->pos.x = 100.0f + c * 100;
+				item->pos.y = 80;
+			}
 		}
+
 
 		return  true;
 	}
@@ -91,7 +107,7 @@ namespace  Game
 	//「更新」１フレーム毎に行う処理
 	void  Object::UpDate()
 	{
-		auto inp = ge->in1->GetState( );
+		auto inp = ge->in1->GetState();
 		if (inp.ST.down) {
 			//自身に消滅要請
 			this->Kill();
