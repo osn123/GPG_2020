@@ -65,6 +65,7 @@ namespace Item00 {
 			break;
 		case Motion::Lose:
 			this->pos.y -= 3;
+			alpha = 0.3f; // 30%‚Ì•s“§–¾“x
 			if (this->moveCnt > 20)
 			{
 				this->Kill();//
@@ -89,7 +90,8 @@ namespace Item00 {
 	BChara::DrawInfo  Object::Anim()
 	{
 		BChara::DrawInfo imageTable[] = {
-		 {ML::Box2D(-16, -16, 32, 32),ML::Box2D(0, 0, 32, 32),ML::Color(1,1,1,1)},// 
+		 {ML::Box2D(-16, -16, 32, 32),ML::Box2D(0, 0, 32, 32),ML::Color(0,0,0,0)},//
+		 //ML::Color(1,1,1,1) },
 		};
 		return imageTable[0];
 	}
