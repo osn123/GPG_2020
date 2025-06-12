@@ -120,12 +120,14 @@ namespace Player {
 		case Motion::Stand:  // —§‚Á‚Ä‚¢‚é
 			if (inp.LStick.BL.on) nm = Motion::Walk;
 			if (inp.LStick.BR.on) nm = Motion::Walk;
+			if (inp.B4.down) nm = Motion::Attack;
 			if (inp.B1.down) nm = Motion::TakeOff;
 			if (this->CheckFoot() == false) nm = Motion::Fall;  // ‘«Œ³ áŠQ@–³‚µ
 			break;
 
 		case Motion::Walk:  // •à‚¢‚Ä‚¢‚é
 			if (inp.LStick.BL.off && inp.LStick.BR.off) nm = Motion::Stand;
+			if (inp.B4.down) nm = Motion::Attack;
 			if (inp.B1.down) nm = Motion::TakeOff;
 			if (this->CheckFoot() == false) nm = Motion::Fall;  // ‘«Œ³ áŠQ@–³‚µ
 			break;
@@ -144,6 +146,7 @@ namespace Player {
 			break;
 
 		case Motion::Attack:  // UŒ‚’†
+			if (this->moveCnt >= 8) nm = Motion::Stand;
 			break;
 		case Motion::TakeOff:  // ”ò‚Ñ—§‚¿
 			if (inp.B1.up) nm = Motion::Jump;
@@ -246,6 +249,18 @@ namespace Player {
 			}
 			break;
 		case Motion::Attack:  // UŒ‚’†
+			//’e‚ðŒ‚‚Â 
+			if (this->moveCnt == 4)
+			{
+				auto  shot = Shot00::Object::Create(true);
+				shot->pos = this->pos;
+				if (this->angle_LR == Angle_LR::Right) {
+					shot->moveVec = ML::Vec2(8, 0);
+				}
+				else {
+					shot->moveVec = ML::Vec2(-8, 0);
+				}
+			}
 			break;
 		}
 	}
