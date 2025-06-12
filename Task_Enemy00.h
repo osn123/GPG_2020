@@ -55,5 +55,6 @@ namespace  Enemy00
 		void  Move();
 		//アニメーション制御
 		BChara::DrawInfo  Anim();
+		void Received(BChara* from_, AttackInfo at_) override;
 	};
 }

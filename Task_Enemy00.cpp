@@ -246,6 +246,14 @@ namespace Enemy00 {
 		return rtv;
 	}
 
+	void Object::Received(BChara* from_, AttackInfo at_) {		
+		this->hp -= at_.power;
+		if (hp<0)
+		{
+			//消滅申請
+			this->Kill();
+		}
+	}
 
 	// ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 // 以下は基本的に変更不要なメソッド

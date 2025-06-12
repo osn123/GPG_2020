@@ -40,6 +40,7 @@ namespace  Shot00
 		this->hitBase = ML::Box2D(-8, -8, 16, 16);
 		this->moveVec = ML::Vec2(0, 0);
 		this->moveCnt = 0;
+		this->hp = 5;  // 
 
 		//★タスクの生成
 
@@ -90,7 +91,24 @@ namespace  Shot00
 		}
 
 		//敵対象と衝突判定＆ダメージを与える処理
-		//未実装
+		//当たり判定
+		{
+			ML::Box2D me = this->hitBase.OffsetCopy(this->pos);
+			auto targets = ge->GetTasks<BChara>("敵");
+			for (auto it = targets->begin(); it != targets->end(); ++it)
+			{
+				//
+				if ((*it)->CheckHit(me))
+				{
+					//
+					BChara::AttackInfo at = { hp,0,0 };
+					(*it)->Received(this, at);
+					//消滅申請
+					this->Kill();
+					break;
+				}
+			}
+		}
 	}
 	//-------------------------------------------------------------------
 	//「２Ｄ描画」１フレーム毎に行う処理
