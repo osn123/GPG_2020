@@ -123,4 +123,16 @@ bool BChara::CheckHit(const ML::Box2D& hit_) {
 	return me.Hit(hit_);
  }
 
+bool BChara::Attack_Std(const string& targetGroup,  AttackInfo& at) {
+	ML::Box2D me = this->hitBase.OffsetCopy(this->pos);
+	auto targets = ge->GetTasks<BChara>(targetGroup);
+	for (auto it = targets->begin(); it != targets->end(); ++it) {
+		if ((*it)->CheckHit(me)) {
+			(*it)->Received(this, at);
+			return true; // 
+		}
+	}
+	return false; // 
+}
+
 

@@ -73,21 +73,30 @@ namespace Enemy00 {
 		ML::Vec2 est = this->moveVec;
 		this->CheckMove(est);
 		//当たり判定
+//		{
+//			ML::Box2D me = this->hitBase.OffsetCopy(this->pos);
+//			auto targets = ge->GetTasks<BChara>("プレイヤ");
+//			for (auto it = targets->begin(); it != targets->end();++it)
+//			{
+////
+//				if ((*it)->CheckHit(me))
+//				{
+//					//
+//					BChara::AttackInfo at = { 1,0,0 };
+//					(*it)->Received(this, at);
+//					break;
+//				}
+//			}
+//		}
+
+		BChara::AttackInfo at = { 1,0,0 };
+		if (true == this->Attack_Std("プレイヤー", at))
 		{
-			ML::Box2D me = this->hitBase.OffsetCopy(this->pos);
-			auto targets = ge->GetTasks<BChara>("プレイヤ");
-			for (auto it = targets->begin(); it != targets->end();++it)
-			{
-//
-				if ((*it)->CheckHit(me))
-				{
-					//
-					BChara::AttackInfo at = { 1,0,0 };
-					(*it)->Received(this, at);
-					break;
-				}
-			}
+			//共通化により
+			//
+			{}
 		}
+
 	}
 	//-------------------------------------------------------------------
 	// 「２Ｄ描画」１フレーム毎に行う処理
@@ -246,9 +255,9 @@ namespace Enemy00 {
 		return rtv;
 	}
 
-	void Object::Received(BChara* from_, AttackInfo at_) {		
+	void Object::Received(BChara* from_, AttackInfo at_) {
 		this->hp -= at_.power;
-		if (hp<0)
+		if (hp < 0)
 		{
 			//消滅申請
 			this->Kill();

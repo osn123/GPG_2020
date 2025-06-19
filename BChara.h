@@ -106,5 +106,5 @@ public:
 
 	virtual void Received(BChara* from_, AttackInfo at_);
 	virtual bool CheckHit(const ML::Box2D& hit_);
-
+	virtual bool Attack_Std(const string& targetGroup,  AttackInfo& at);
 };
