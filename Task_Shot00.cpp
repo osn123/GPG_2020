@@ -93,20 +93,28 @@ namespace  Shot00
 		//“G‘ÎÛ‚ÆÕ“Ë”»’è•ƒ_ƒ[ƒW‚ğ—^‚¦‚éˆ—
 		//“–‚½‚è”»’è
 		{
-			ML::Box2D me = this->hitBase.OffsetCopy(this->pos);
-			auto targets = ge->GetTasks<BChara>("“G");
-			for (auto it = targets->begin(); it != targets->end(); ++it)
+			//ML::Box2D me = this->hitBase.OffsetCopy(this->pos);
+			//auto targets = ge->GetTasks<BChara>("“G");
+			//for (auto it = targets->begin(); it != targets->end(); ++it)
+			//{
+			//	//
+			//	if ((*it)->CheckHit(me))
+			//	{
+			//		//
+			//		BChara::AttackInfo at = { hp,0,0 };
+			//		(*it)->Received(this, at);
+			//		//Á–Å\¿
+			//		this->Kill();
+			//		break;
+			//	}
+			//}
+
+			BChara::AttackInfo at = { hp,0,0 };
+			if (true == this->Attack_Std("“G", at))
 			{
+				//‹¤’Ê‰»‚É‚æ‚è
 				//
-				if ((*it)->CheckHit(me))
-				{
-					//
-					BChara::AttackInfo at = { hp,0,0 };
-					(*it)->Received(this, at);
-					//Á–Å\¿
-					this->Kill();
-					break;
-				}
+				{}
 			}
 		}
 	}

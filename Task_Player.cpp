@@ -78,18 +78,26 @@ namespace Player {
 		this->CheckMove(est);
 		//当たり判定
 		{
-			ML::Box2D me = this->hitBase.OffsetCopy(this->pos);
-			auto targets = ge->GetTasks<BChara>("アイテム");
-			for (auto it = targets->begin(); it != targets->end(); ++it)
+			//ML::Box2D me = this->hitBase.OffsetCopy(this->pos);
+			//auto targets = ge->GetTasks<BChara>("アイテム");
+			//for (auto it = targets->begin(); it != targets->end(); ++it)
+			//{
+			//	//
+			//	if ((*it)->CheckHit(me))
+			//	{
+			//		//
+			//		BChara::AttackInfo at = { 0,0,0 };
+			//		(*it)->Received(this, at);
+			//		break;
+			//	}
+			//}
+
+			BChara::AttackInfo at = { 0,0,0 };
+			if (true == this->Attack_Std("アイテム", at))
 			{
+				//共通化により
 				//
-				if ((*it)->CheckHit(me))
-				{
-					//
-					BChara::AttackInfo at = { 0,0,0 };
-					(*it)->Received(this, at);
-					break;
-				}
+				{}
 			}
 		}
 	}

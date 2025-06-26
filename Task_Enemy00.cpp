@@ -90,7 +90,7 @@ namespace Enemy00 {
 //		}
 
 		BChara::AttackInfo at = { 1,0,0 };
-		if (true == this->Attack_Std("プレイヤー", at))
+		if (true == this->Attack_Std("プレイヤ", at))
 		{
 			//共通化により
 			//
