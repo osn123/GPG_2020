@@ -55,7 +55,7 @@ namespace  Player
 		//モーションに対応した処理
 		void  Move();
 		//アニメーション制御
-		BChara::DrawInfo  Anim();
+		BChara::DrawInfo  Anim() override;
 
 		void Received(BChara* from_, AttackInfo at_) override;
 

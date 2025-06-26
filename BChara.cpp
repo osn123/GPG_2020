@@ -121,9 +121,9 @@ void BChara::Received(BChara* from_, AttackInfo at_) {
 bool BChara::CheckHit(const ML::Box2D& hit_) {
 	ML::Box2D me = this->hitBase.OffsetCopy(this->pos);
 	return me.Hit(hit_);
- }
+}
 
-bool BChara::Attack_Std(const string& targetGroup,  AttackInfo& at) {
+bool BChara::Attack_Std(const string& targetGroup, AttackInfo& at) {
 	ML::Box2D me = this->hitBase.OffsetCopy(this->pos);
 	auto targets = ge->GetTasks<BChara>(targetGroup);
 	for (auto it = targets->begin(); it != targets->end(); ++it) {
@@ -132,7 +132,25 @@ bool BChara::Attack_Std(const string& targetGroup,  AttackInfo& at) {
 			return true; // 
 		}
 	}
-	return false; // 
+	return false; //	
 }
 
+void BChara::Render_Std(const DG::Image::SP& img_) {
+	if (this->unHitTime > 0) {
+		if ((this->unHitTime / 4) % 2 == 0) {
+			return;//
+		}
+	}
+	BChara::DrawInfo di = this->Anim();
+	di.draw.Offset(this->pos);
+	// ƒXƒNƒ[ƒ‹‘Î‰ž
+	di.draw.Offset(-ge->camera2D.x, -ge->camera2D.y);
+
+	img_->Draw(di.draw, di.src);
+}
+
+BChara::DrawInfo  BChara::Anim() {
+	BChara::DrawInfo rtv;
+	return   rtv;
+}
 

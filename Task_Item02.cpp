@@ -78,12 +78,16 @@ namespace Item02 {
 	//-------------------------------------------------------------------
 	// 「２Ｄ描画」１フレーム毎に行う処理
 	void Object::Render2D_AF() {
-		BChara::DrawInfo di = this->Anim();
-		di.draw.Offset(this->pos);
-		// スクロール対応
-		di.draw.Offset(-ge->camera2D.x, -ge->camera2D.y);
 
-		this->res->img->Draw(di.draw, di.src,di.color);
+		this->Render_Std(this->res->img);//
+
+
+		//BChara::DrawInfo di = this->Anim();
+		//di.draw.Offset(this->pos);
+		//// スクロール対応
+		//di.draw.Offset(-ge->camera2D.x, -ge->camera2D.y);
+
+		//this->res->img->Draw(di.draw, di.src,di.color);
 
 	}
 	//-----------------------------------------------------------------------------

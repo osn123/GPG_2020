@@ -104,17 +104,20 @@ namespace Player {
 	//-------------------------------------------------------------------
 	// 「２Ｄ描画」１フレーム毎に行う処理
 	void Object::Render2D_AF() {
-		if (this->unHitTime > 0) {
-			if ((this->unHitTime / 4) % 2 == 0) {
-				return;//
-			}
-		}
-		BChara::DrawInfo di = this->Anim();
-		di.draw.Offset(this->pos);
-		// スクロール対応
-		di.draw.Offset(-ge->camera2D.x, -ge->camera2D.y);
+		
+		this->Render_Std(this->res->img);//
 
-		this->res->img->Draw(di.draw, di.src);
+		//if (this->unHitTime > 0) {
+		//	if ((this->unHitTime / 4) % 2 == 0) {
+		//		return;//
+		//	}
+		//}
+		//BChara::DrawInfo di = this->Anim();
+		//di.draw.Offset(this->pos);
+		//// スクロール対応
+		//di.draw.Offset(-ge->camera2D.x, -ge->camera2D.y);
+
+		//this->res->img->Draw(di.draw, di.src);
 	}
 	//-----------------------------------------------------------------------------
 	// 思考＆状況判断　モーション決定

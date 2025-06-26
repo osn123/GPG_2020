@@ -50,7 +50,7 @@ namespace  Item01
 		//BCharaに持たせていない変数・メソッドのみここに書く
 
 		//アニメーション制御
-		BChara::DrawInfo  Anim();
+		BChara::DrawInfo  Anim() override;
 		void Received(BChara* from_, AttackInfo at_) override;
 
 		float alpha = 1.0f;

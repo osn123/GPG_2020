@@ -104,7 +104,11 @@ public:
 		int element;
 	};
 
+	virtual BChara::DrawInfo  Anim();
+
 	virtual void Received(BChara* from_, AttackInfo at_);
 	virtual bool CheckHit(const ML::Box2D& hit_);
 	virtual bool Attack_Std(const string& targetGroup,  AttackInfo& at);
+	virtual void Render_Std(const DG::Image::SP& img_);//
+
 };
