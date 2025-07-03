@@ -53,6 +53,6 @@ namespace  Item01
 		BChara::DrawInfo  Anim() override;
 		void Received(BChara* from_, AttackInfo at_) override;
 
-		float alpha = 1.0f;
+		//float alpha = 1.0f;
 	};
 }

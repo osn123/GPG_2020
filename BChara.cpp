@@ -146,7 +146,7 @@ void BChara::Render_Std(const DG::Image::SP& img_) {
 	// ƒXƒNƒ[ƒ‹‘Î‰ž
 	di.draw.Offset(-ge->camera2D.x, -ge->camera2D.y);
 
-	img_->Draw(di.draw, di.src);
+	img_->Draw(di.draw, di.src,di.color);
 }
 
 BChara::DrawInfo  BChara::Anim() {
