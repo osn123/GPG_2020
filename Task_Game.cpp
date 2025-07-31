@@ -61,11 +61,11 @@ namespace  Game
 		spr->target = pl;
 
 		//敵の生成 
-		for (int c = 0; c < 6; ++c) {
-			auto  ene = Enemy00::Object::Create(true);
-			ene->pos.x = 500 + c * 100;
-			ene->pos.y = 80;
-		}
+		//for (int c = 0; c < 6; ++c) {
+		//	auto  ene = Enemy00::Object::Create(true);
+		//	ene->pos.x = 500 + c * 100;
+		//	ene->pos.y = 80;
+		//}
 
 		//アイテムの仮配置
 		for (int c = 0; c < 3; ++c) {
@@ -73,21 +73,21 @@ namespace  Game
 				auto  item = Item00::Object::Create(true);
 				item->pos.x = 100.0f + c * 100;
 				item->pos.y = 80;
-				item->eventFileName = "./data/event/event0010.txt";
+				item->eventFileName = "./data/event/event0011.txt";
 			}
 
 			if (c == 1) {
 				auto  item = Item01::Object::Create(true);
 				item->pos.x = 100.0f + c * 100;
 				item->pos.y = 80;
-				item->eventFileName = "./data/event/event0010.txt";
+				item->eventFileName = "./data/event/event0011.txt";
 
 			}
 			if (c == 2) {
 				auto  item = Item02::Object::Create(true);
 				item->pos.x = 100.0f + c * 100;
 				item->pos.y = 80;
-				item->eventFileName = "./data/event/event0010.txt";
+				item->eventFileName = "./data/event/event0011.txt";
 
 			}
 		}

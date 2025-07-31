@@ -35,6 +35,10 @@ namespace  EventEngine
 		//★データ初期化
 		
 		//★タスクの生成
+		ge->StopAll_G("プレイヤ");
+		ge->StopAll_G("敵");
+		ge->StopAll_G("弾（プレイヤ）");
+		ge->StopAll_G("アイテム");
 
 		//
 		//
@@ -57,6 +61,11 @@ namespace  EventEngine
 		if (!ge->QuitFlag() && this->nextTaskCreate) {
 			//★引き継ぎタスクの生成
 		}
+
+		ge->StopAll_G("プレイヤ",false);
+		ge->StopAll_G("敵", false);
+		ge->StopAll_G("弾（プレイヤ）", false);
+		ge->StopAll_G("アイテム", false);
 
 		return  true;
 	}
@@ -176,6 +185,7 @@ namespace  EventEngine
 		else if (hs_ == "label") {}
 		else if (hs_ == "img") { this->Image(ss); }
 		else if (hs_ == "fileset") { this->FileSet(ss); }
+		else if (hs_ == "appear") { this->ApprearObject(ss); }
 		else  {
 			return false;
 		}

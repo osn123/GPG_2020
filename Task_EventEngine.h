@@ -68,5 +68,7 @@ namespace  EventEngine
 		bool Image(stringstream& ss_);
 
 		bool FileSet(stringstream& ss_);
+
+		bool ApprearObject(stringstream& ss_);
 	};
 }

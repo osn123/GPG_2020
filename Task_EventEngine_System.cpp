@@ -1,5 +1,7 @@
 #include  "MyPG.h"
 #include  "Task_EventEngine.h"
+#include  "ApprearObject.h"
+
 
 namespace EventEngine {
 
@@ -92,4 +94,35 @@ namespace EventEngine {
 		}
 		return true;
 	}
+
+	bool Object::ApprearObject(stringstream& ss_) {
+		//
+		string kind;
+		float posX, posY;
+		ss_ >> kind >> posX >> posY;
+		//
+		BChara::SP obj = AppearObject_BChara(kind);
+		if (obj)
+		{
+			obj->pos.x = posX;
+			obj->pos.y = posY;
+			obj->Stop();//
+		}
+		//
+		while (false == ss_.eof())
+		{
+			string paramName, eq;
+			ss_ >> paramName >> eq;
+			//
+			if (eq != "=") { break; }
+			if (paramName == "name") {ss_ >>obj->name; }
+			if (paramName == "jumpPow") {ss_ >>obj->jumpPow; }
+			if (paramName == "maxFallSpeed") {ss_ >>obj->maxFallSpeed; }
+			if (paramName == "maxSpeed") {ss_ >>obj->maxSpeed; }
+			if (paramName == "eventFileName") { ss_ >> obj->eventFileName; }			
+		//
+		}
+		return nullptr != obj;
+	}
+
 }//

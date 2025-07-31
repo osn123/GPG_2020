@@ -8,6 +8,8 @@
 #include "Task_Map2D.h"
 #include "Task_Shot00.h"
 #include "Task_Shot01.h"
+#include  "Task_EventEngine.h"
+
 
 namespace Enemy00 {
 	Resource::WP Resource::instance;
@@ -264,6 +266,14 @@ namespace Enemy00 {
 		{
 			//Á–Å\¿
 			this->Kill();
+		}
+		//
+		if (this->eventFileName != "") {
+			//if (auto ev = EventEngine::Create_Mutex())
+			if (auto ev = EventEngine::Object::Create_Mutex())
+			{
+				ev->Set(this->eventFileName);
+			}
 		}
 	}
 

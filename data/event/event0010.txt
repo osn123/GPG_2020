@@ -5,10 +5,6 @@ fade_io>in
 msg>’Êí˜g,off
 img>ƒQ[ƒ€–{•ÒBG,./data/image/GameBG–é.bmp
 msg>’Êí˜g,100,‰½“x‚à˜b‚µ‚©‚¯‚ç‚ê‚Ä‚à¢‚é‚ñ‚¾‚æ‚ËB
-msg>’Êí˜g,0,‰´‚ÍƒQ[ƒ€‚ÌƒLƒƒƒ‰ƒNƒ^‚È‚ñ‚¾‚©‚çA
-msg>’Êí˜g,0,‚»‚ñ‚È‚É‚¢‚ë‚¢‚ë‚µ‚á‚×‚ê‚é‚í‚¯‚È‚¢‚¾‚ëB
-msg>’Êí˜g,0,‹ó‹C“Ç‚ß‚æB
 evimg>PL_A,off
 evimg>PL_B,off
-fileset>./data/event/event0004.txt
 end>

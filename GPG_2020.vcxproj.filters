@@ -133,6 +133,12 @@
     <ClCompile Include="Task_EventEngine_System.cpp">
       <Filter>MyPG\Task</Filter>
     </ClCompile>
+    <ClCompile Include="ApprearObject.h">
+      <Filter>MyPG</Filter>
+    </ClCompile>
+    <ClCompile Include="ApprearObject.cpp">
+      <Filter>MyPG</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine_Ver3_83.h">
