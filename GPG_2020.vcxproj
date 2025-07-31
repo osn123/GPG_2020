@@ -139,6 +139,11 @@
     <ClCompile Include="Task_Effect00.cpp" />
     <ClCompile Include="Task_Ending.cpp" />
     <ClCompile Include="Task_Enemy00.cpp" />
+    <ClCompile Include="Task_EventEngine.cpp" />
+    <ClCompile Include="Task_EventEngine_System.cpp" />
+    <ClCompile Include="Task_Ev_FadeInOut.cpp" />
+    <ClCompile Include="Task_Ev_Image.cpp" />
+    <ClCompile Include="Task_Ev_Message.cpp" />
     <ClCompile Include="Task_Game.cpp" />
     <ClCompile Include="Task_Item00.cpp" />
     <ClCompile Include="Task_Item01.cpp" />
@@ -172,6 +177,10 @@
     <ClInclude Include="Task_Effect00.h" />
     <ClInclude Include="Task_Ending.h" />
     <ClInclude Include="Task_Enemy00.h" />
+    <ClInclude Include="Task_EventEngine.h" />
+    <ClInclude Include="Task_Ev_FadeInOut.h" />
+    <ClInclude Include="Task_Ev_Image.h" />
+    <ClInclude Include="Task_Ev_Message.h" />
     <ClInclude Include="Task_Game.h" />
     <ClInclude Include="Task_Item00.h" />
     <ClInclude Include="Task_Item01.h" />

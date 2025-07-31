@@ -51,7 +51,7 @@ public:
 	float			decSpeed;		//	¶‰E•ûŒü‚Ö‚ÌˆÚ“®‚ÌŒ¸Š—Ê
 	int hp;
 	int unHitTime;
-
+	string eventFileName;
 
 
 	//ƒƒ“ƒo•Ï”‚ÉÅ’áŒÀ‚Ì‰Šú‰»‚ğs‚¤
@@ -74,6 +74,7 @@ public:
 		, preMotion(Motion::Stand)
 		, hp(1)
 		, unHitTime(0)
+		, eventFileName("")
 
 	{
 	}

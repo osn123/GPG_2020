@@ -1,0 +1,23 @@
+fade_io>./data/image/FadeImage.bmp
+evimg>PL_A,./data/image/プレイヤ立ちえ（通常）.png,L
+fade_io>in
+
+evimg>PL_B,./data/image/プレイヤ立ちえ（通常）.png,RX
+msg>通常枠,off
+msg>通常枠,0,やあ、こんにちは旅の人よ。
+msg>通常枠,0,ここはアリエヘンの城下町だよ。
+evimg>PL_A,off
+evimg>PL_B,off
+
+flag>最初の町：町人Å + 1
+if>ev_flag,最初の町：町人Å == 1,1回目
+if>ev_flag,最初の町：町人Å == 2,2回目
+end>
+
+label>1回目
+fileset>./data/event/event0005.txt
+end>
+
+label>2回目
+fileset>./data/event/event0006.txt
+end>

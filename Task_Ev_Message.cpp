@@ -1,37 +1,42 @@
 //-------------------------------------------------------------------
-//ゲーム本編
+//
 //-------------------------------------------------------------------
 #include  "MyPG.h"
-#include  "Task_Game.h"
-#include  "Task_Ending.h"
-#include  "Task_Map2D.h"
-#include  "Task_Player.h"
-#include  "Task_Effect00.h"
-#include "Task_Shot00.h"
-#include  "Task_Sprite.h"
-#include  "Task_Enemy00.h"
-#include  "Task_Item00.h"
-#include  "Task_Item01.h"
-#include  "Task_Item02.h"
+#include  "Task_Ev_Message.h"
 
-#include  "Task_EventEngine.h"
-#include  "Task_Ev_Image.h"
-#include  "Task_Ev_FadeInOut.h"
-
-
-namespace  Game
+namespace  Ev_Message
 {
 	Resource::WP  Resource::instance;
 	//-------------------------------------------------------------------
 	//リソースの初期化
 	bool  Resource::Initialize()
 	{
+		this->img[0] = DG::Image::Create("./data/image/MessageF.png");
+		this->img[1] = DG::Image::Create("./data/image/MessageF.png");
+		this->img[2] = DG::Image::Create("./data/image/MessageF.png");
+		this->img[3] = DG::Image::Create("./data/image/MessageF.png");
+		this->img[4] = DG::Image::Create("./data/image/MessageF.png");
+		this->img[5] = DG::Image::Create("./data/image/MessageF.png");
+		this->img[6] = DG::Image::Create("./data/image/MessageF.png");
+		this->img[7] = DG::Image::Create("./data/image/MessageF.png");
+		this->img[8] = DG::Image::Create("./data/image/MessageF.png");
+		this->img[9] = DG::Image::Create("./data/image/MessageF.png");
+		
+		this->font[0] = DG::Font::Create("HG丸ｺﾞｼｯｸM-PRO", 8, 16);
+		this->font[1] = DG::Font::Create("HG丸ｺﾞｼｯｸM-PRO", 12, 24);
+		this->font[2] = DG::Font::Create("HG丸ｺﾞｼｯｸM-PRO", 16, 32);
 		return true;
 	}
 	//-------------------------------------------------------------------
 	//リソースの解放
 	bool  Resource::Finalize()
 	{
+		for (int i = 0; i < _countof(this->img); i++) {
+			this->img[i].reset();
+		}
+		for (int i = 0; i < _countof(this->font); i++) {
+			this->font[i].reset();
+		}
 		return true;
 	}
 	//-------------------------------------------------------------------
@@ -44,55 +49,15 @@ namespace  Game
 		this->res = Resource::Create();
 
 		//★データ初期化
-		ge->camera2D = ML::Box2D(-200, -100, 480, 270);//取りあえず初期値設定
-
+		this->Stop();//
+		this->render2D_Priority[1] = 0.1f;
+		this->pos.x = 0;
+		this->pos.y = 270 - 128;
+		this->msgText = "";
+		this->bgNumber = 0;
+		this->fontNumber = 1;
+		
 		//★タスクの生成
-	   //マップの生成
-		auto  map = Map2D::Object::Create(true);
-		map->Load("./data/Map/map3.txt");
-
-		auto  pl = Player::Object::Create(true);
-		pl->pos.x = 480 / 2;
-		pl->pos.y = 270 * 2 / 3;
-
-		//妖精の生成
-		auto  spr = Sprite::Object::Create(true);
-		spr->pos = pl->pos;
-		spr->target = pl;
-
-		//敵の生成 
-		for (int c = 0; c < 6; ++c) {
-			auto  ene = Enemy00::Object::Create(true);
-			ene->pos.x = 500 + c * 100;
-			ene->pos.y = 80;
-		}
-
-		//アイテムの仮配置
-		for (int c = 0; c < 3; ++c) {
-			if (c == 0) {
-				auto  item = Item00::Object::Create(true);
-				item->pos.x = 100.0f + c * 100;
-				item->pos.y = 80;
-				item->eventFileName = "./data/event/event0010.txt";
-			}
-
-			if (c == 1) {
-				auto  item = Item01::Object::Create(true);
-				item->pos.x = 100.0f + c * 100;
-				item->pos.y = 80;
-				item->eventFileName = "./data/event/event0010.txt";
-
-			}
-			if (c == 2) {
-				auto  item = Item02::Object::Create(true);
-				item->pos.x = 100.0f + c * 100;
-				item->pos.y = 80;
-				item->eventFileName = "./data/event/event0010.txt";
-
-			}
-		}
-
-		ge->evFlags.clear(); //
 
 		return  true;
 	}
@@ -101,14 +66,10 @@ namespace  Game
 	bool  Object::Finalize()
 	{
 		//★データ＆タスク解放
-		ge->KillAll_G("本編");
-		ge->KillAll_G("フィールド");
-		ge->KillAll_G("プレイヤ");
 
 
 		if (!ge->QuitFlag() && this->nextTaskCreate) {
 			//★引き継ぎタスクの生成
-			auto next = Ending::Object::Create(true);
 		}
 
 		return  true;
@@ -118,16 +79,84 @@ namespace  Game
 	void  Object::UpDate()
 	{
 		auto inp = ge->in1->GetState();
-		if (inp.ST.down) {
-			//自身に消滅要請
-			this->Kill();
+		//
+		if ((this->timeLimit!=0 && this->timeCnt>=this->timeLimit) || inp.B2.down)
+		{
+			//
+			this->Stop();
+			//
+			ge->StopAll_GN("イベント", "実行エンジン", false);
+		}
+		else {
+			this->timeCnt++;
 		}
 	}
 	//-------------------------------------------------------------------
 	//「２Ｄ描画」１フレーム毎に行う処理
 	void  Object::Render2D_AF()
 	{
+		ML::Box2D draw(0, 0, 480, 128);
+		ML::Box2D src(0, 0, 240, 64);
+		draw.Offset(this->pos);
+		this->res->img[this->bgNumber]->Draw(draw, src, ML::Color(0.9f, 1, 1, 1));
+		ML::Box2D drawF(6, 6, 480-12, 128-12);
+		drawF.Offset(this->pos);
+		this->res->font[this->fontNumber]->Draw(drawF, this->msgText);
+
 	}
+
+	void Object::Set(const string& taskName_, stringstream& ss_)
+	{
+		//
+		int timeL;
+		string msg;
+		ss_ >> timeL >> msg;
+
+		//
+		this->name = taskName_;
+		//
+		if (msg=="off")
+		{
+			this->Kill();
+			return;
+		}
+
+		this->timeCnt = 0;
+		this->timeLimit = timeL;
+		this->msgText = msg;
+		//
+		string::size_type ast;
+		while ((ast=msgText.find("*"))!=string::npos)
+		{
+			msgText.at(ast) = '\n';
+		}
+
+		//
+		ge->StopAll_GN("イベント", "実行エンジン");
+		//
+		this->Stop(false);	
+
+	}
+
+	 void Object::CreateOrReset(stringstream& ss_) {
+		 //
+		 string taskName;
+		 ss_ >> taskName;
+
+		 //
+		 auto p = ge->GetTask<Object>("メッセージ表示枠", taskName);
+		 //
+		 if (nullptr == p) {
+			 p = Object::Create(true);
+			 p->Set(taskName, ss_);
+		 }
+		 //
+		 else
+		 {
+			 p->Set(taskName, ss_);
+		 }		 
+	}
+
 
 	//★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
 	//以下は基本的に変更不要なメソッド
@@ -141,6 +170,7 @@ namespace  Game
 			ob->me = ob;
 			if (flagGameEnginePushBack_) {
 				ge->PushBack(ob);//ゲームエンジンに登録
+				
 			}
 			if (!ob->B_Initialize()) {
 				ob->Kill();//イニシャライズに失敗したらKill

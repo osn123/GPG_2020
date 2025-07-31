@@ -1,0 +1,12 @@
+fade_io>./data/image/FadeImage.bmp
+evimg>PL_A,./data/image/プレイヤ立ちえ（通常）.png,LY
+fade_io>in
+
+evimg>PL_B,./data/image/プレイヤ立ちえ（通常）.png,RXY
+msg>通常枠,100,おや、また会いましたね旅の人よ。
+msg>通常枠,0,城下町でまいごにでもなりましたか？
+evimg>PL_A,off
+evimg>PL_B,off
+fileset>./data/event/event0007.txt
+end>
+

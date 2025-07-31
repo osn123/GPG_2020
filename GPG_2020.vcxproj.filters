@@ -118,6 +118,21 @@
     <ClCompile Include="Task_Item02.cpp">
       <Filter>MyPG\Task</Filter>
     </ClCompile>
+    <ClCompile Include="Task_Ev_FadeInOut.cpp">
+      <Filter>MyPG\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Task_Ev_Image.cpp">
+      <Filter>MyPG\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Task_Ev_Message.cpp">
+      <Filter>MyPG\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Task_EventEngine.cpp">
+      <Filter>MyPG\Task</Filter>
+    </ClCompile>
+    <ClCompile Include="Task_EventEngine_System.cpp">
+      <Filter>MyPG\Task</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngine_Ver3_83.h">
@@ -208,6 +223,18 @@
       <Filter>MyPG\Task</Filter>
     </ClInclude>
     <ClInclude Include="Task_Item02.h">
+      <Filter>MyPG\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Task_Ev_FadeInOut.h">
+      <Filter>MyPG\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Task_Ev_Image.h">
+      <Filter>MyPG\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Task_Ev_Message.h">
+      <Filter>MyPG\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="Task_EventEngine.h">
       <Filter>MyPG\Task</Filter>
     </ClInclude>
   </ItemGroup>

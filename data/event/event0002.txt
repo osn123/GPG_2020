@@ -1,0 +1,49 @@
+fade_io>./data/image/FadeImage.bmp
+evimg>PL_A,./data/image/プレイヤ立ちえ（通常）.png,L
+flag>最初の町：町人Å + 1
+fade_io>in
+if>ev_flag,最初の町：町人Å == 1,1回目
+if>ev_flag,最初の町：町人Å == 2,2回目
+if>ev_flag,最初の町：町人Å == 3,3回目
+if>ev_flag,最初の町：町人Å > 3,4回目
+end>
+
+label>2回目
+evimg>PL_B,./data/image/プレイヤ立ちえ（通常）.png,RX
+msg>通常枠,off
+msg>通常枠,100,おや、また会いましたね旅の人よ。
+msg>通常枠,0,城下町でまいごにでもなりましたか？
+evimg>PL_A,off
+evimg>PL_B,off
+end>
+
+label>3回目
+evimg>PL_B,./data/image/プレイヤ立ちえ（通常）.png,RX
+msg>通常枠,off
+msg>通常枠,0,よく合いますね、旅の人よ。
+msg>通常枠,0,もしかすると私に何か用ですか？
+msg>通常枠,0,そんなはずありませんよね。
+evimg>PL_A,off
+evimg>PL_B,off
+end>
+
+label>1回目
+evimg>PL_B,./data/image/プレイヤ立ちえ（通常）.png,RX
+msg>通常枠,off
+msg>通常枠,0,やあ、こんにちは旅の人よ。
+msg>通常枠,0,ここはアリエヘンの城下町だよ。
+evimg>PL_A,off
+evimg>PL_B,off
+end>
+
+label>4回目
+evimg>PL_B,./data/image/プレイヤ立ちえ（怒る）.png,RXY
+msg>通常枠,off
+img>ゲーム本編BG,./data/image/GameBG夜.bmp
+msg>通常枠,100,何度も話しかけられても困るんだよね。
+msg>通常枠,0,俺はゲームのキャラクタなんだから、
+msg>通常枠,0,そんなにいろいろしゃべれるわけないだろ。
+msg>通常枠,0,空気読めよ。
+evimg>PL_A,off
+evimg>PL_B,off
+end>

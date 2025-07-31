@@ -1,0 +1,34 @@
+evimg>PL_A,./data/image/プレイヤ立ちえ（通常）.png,L
+
+label>3回目
+flag>テスト変数01 + 1
+if>ev_flag,テスト変数01 == 1,1回目
+flag>テスト変数01+1
+if>ev_flag,テスト変数01 == 2,2回目
+flag>テスト変数01=0
+if>ev_flag,テスト変数01 == 0,3回目
+end>
+
+label>2回目
+evimg>PL_B,./data/image/プレイヤ立ちえ（通常）.png,RX
+msg>通常枠,100,こんにちわ世界！
+msg>通常枠,0,明日天気にしておくれ
+evimg>PL_A,off
+evimg>PL_B,off
+msg>通常枠,0,おじさんじゃねぇ、おねーさんだ！！
+evimg>PL_A,./data/image/プレイヤ立ちえ（笑う）.png,CX
+end>
+
+label>1回目
+msg>通常枠,0,ぶり大根*ぶり大根*ぶり大根
+msg>通常枠,0,犯人はお前だ。
+evimg>PL_A,./data/image/プレイヤ立ちえ（怒る）.png,RXY
+end>
+
+msg>通常枠,0,サイン、コサイン、タングステン
+msg>通常枠,0,タコ＋イカ＝？
+msg>通常枠,0,クリーチャー
+evimg>PL_A,off
+msg>通常枠,0,これにて終了
+msg>通常枠,0,off
+end>

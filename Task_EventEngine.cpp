@@ -1,26 +1,15 @@
 //-------------------------------------------------------------------
-//ゲーム本編
+//
 //-------------------------------------------------------------------
 #include  "MyPG.h"
-#include  "Task_Game.h"
-#include  "Task_Ending.h"
-#include  "Task_Map2D.h"
-#include  "Task_Player.h"
-#include  "Task_Effect00.h"
-#include "Task_Shot00.h"
-#include  "Task_Sprite.h"
-#include  "Task_Enemy00.h"
-#include  "Task_Item00.h"
-#include  "Task_Item01.h"
-#include  "Task_Item02.h"
-
 #include  "Task_EventEngine.h"
+#include  "Task_Ev_Message.h"
 #include  "Task_Ev_Image.h"
 #include  "Task_Ev_FadeInOut.h"
 
-
-namespace  Game
+namespace  EventEngine
 {
+	Object::WP Object::instance; //
 	Resource::WP  Resource::instance;
 	//-------------------------------------------------------------------
 	//リソースの初期化
@@ -44,55 +33,11 @@ namespace  Game
 		this->res = Resource::Create();
 
 		//★データ初期化
-		ge->camera2D = ML::Box2D(-200, -100, 480, 270);//取りあえず初期値設定
-
+		
 		//★タスクの生成
-	   //マップの生成
-		auto  map = Map2D::Object::Create(true);
-		map->Load("./data/Map/map3.txt");
 
-		auto  pl = Player::Object::Create(true);
-		pl->pos.x = 480 / 2;
-		pl->pos.y = 270 * 2 / 3;
-
-		//妖精の生成
-		auto  spr = Sprite::Object::Create(true);
-		spr->pos = pl->pos;
-		spr->target = pl;
-
-		//敵の生成 
-		for (int c = 0; c < 6; ++c) {
-			auto  ene = Enemy00::Object::Create(true);
-			ene->pos.x = 500 + c * 100;
-			ene->pos.y = 80;
-		}
-
-		//アイテムの仮配置
-		for (int c = 0; c < 3; ++c) {
-			if (c == 0) {
-				auto  item = Item00::Object::Create(true);
-				item->pos.x = 100.0f + c * 100;
-				item->pos.y = 80;
-				item->eventFileName = "./data/event/event0010.txt";
-			}
-
-			if (c == 1) {
-				auto  item = Item01::Object::Create(true);
-				item->pos.x = 100.0f + c * 100;
-				item->pos.y = 80;
-				item->eventFileName = "./data/event/event0010.txt";
-
-			}
-			if (c == 2) {
-				auto  item = Item02::Object::Create(true);
-				item->pos.x = 100.0f + c * 100;
-				item->pos.y = 80;
-				item->eventFileName = "./data/event/event0010.txt";
-
-			}
-		}
-
-		ge->evFlags.clear(); //
+		//
+		//
 
 		return  true;
 	}
@@ -100,15 +45,17 @@ namespace  Game
 	//「終了」タスク消滅時に１回だけ行う処理
 	bool  Object::Finalize()
 	{
-		//★データ＆タスク解放
-		ge->KillAll_G("本編");
-		ge->KillAll_G("フィールド");
-		ge->KillAll_G("プレイヤ");
+		//
+		//
 
+		//★データ＆タスク解放
+		if (this->evFile.is_open())
+		{
+			this->evFile.close();//
+		}
 
 		if (!ge->QuitFlag() && this->nextTaskCreate) {
 			//★引き継ぎタスクの生成
-			auto next = Ending::Object::Create(true);
 		}
 
 		return  true;
@@ -117,16 +64,122 @@ namespace  Game
 	//「更新」１フレーム毎に行う処理
 	void  Object::UpDate()
 	{
-		auto inp = ge->in1->GetState();
-		if (inp.ST.down) {
-			//自身に消滅要請
+		if (!this->evFile)
+		{
 			this->Kill();
+		}
+		//
+		string lineText;
+		string headerText;
+		string dataText;
+		while (this->ReadLine(lineText))
+		{
+			//
+			string::size_type t = lineText.find(">");
+			headerText = lineText.substr(0, t);
+			dataText = lineText.substr(t + 1);
+			//
+			bool rtv = this->Execute(headerText, dataText);
+			//
+			if (false==rtv || BTask::State::Active!=this->CheckState())
+			{
+				break;
+			}
 		}
 	}
 	//-------------------------------------------------------------------
 	//「２Ｄ描画」１フレーム毎に行う処理
 	void  Object::Render2D_AF()
 	{
+	}
+
+	//
+	//
+	Object::SP Object::Create_Mutex() {
+		//
+		if (auto p = instance.lock())
+		{
+			return nullptr;//
+		}
+		else
+		{
+			p = Object::Create(true);
+			instance = p;
+			return p;
+		}
+	}
+
+	bool Object::Set(const string& fPath_) {
+		//
+		if (this->evFile.is_open()) {
+			this->evFile.close();
+		}
+		//
+		this->evFile.open(fPath_);
+		//
+		if (!this->evFile)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	bool Object::ReadLine(string& lineT_) {
+		//
+		bool rtv = false;
+		while (getline(this->evFile,lineT_))
+		{
+			//
+			//
+			if (string::npos == lineT_.find_first_not_of(" 　")) {
+				continue;
+			}
+			//
+			if ('/'==lineT_.at(0))
+			{
+				continue;
+			}
+			//
+			if (string::npos==lineT_.find(">"))
+			{
+				continue;
+			}
+			//
+			rtv=true;
+				break;
+		}
+		return rtv;
+	}
+
+	bool Object::Execute(string& hs_, string& ds_) {
+		//
+		string::size_type t;
+		while ((t = ds_.find_first_of("(,);")) != string::npos) {
+			ds_[t] = ' ';
+		}
+		//
+		stringstream ss;
+		ss << ds_;
+		//
+		if (hs_ == "end") {
+			this->Kill();
+		}
+		//
+		else if (hs_ =="msg")
+		{
+			Ev_Message::Object::CreateOrReset(ss);
+		}
+		else if (hs_ == "evimg"){ Ev_Image::Object::CreateOrReset(ss); }
+		else if (hs_ == "if") { this->If(ss); }
+		else if (hs_ == "flag") { this->EventFlag(ss); }
+		else if (hs_ == "fade_io") { Ev_FadeInOut::Object::CreateOrFadeIn(ss); }
+		else if (hs_ == "label") {}
+		else if (hs_ == "img") { this->Image(ss); }
+		else if (hs_ == "fileset") { this->FileSet(ss); }
+		else  {
+			return false;
+		}
+		return true;
 	}
 
 	//★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
@@ -141,6 +194,7 @@ namespace  Game
 			ob->me = ob;
 			if (flagGameEnginePushBack_) {
 				ge->PushBack(ob);//ゲームエンジンに登録
+				
 			}
 			if (!ob->B_Initialize()) {
 				ob->Kill();//イニシャライズに失敗したらKill

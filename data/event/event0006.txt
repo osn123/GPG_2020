@@ -1,0 +1,13 @@
+fade_io>./data/image/FadeImage.bmp
+evimg>PL_B,./data/image/プレイヤ立ちえ（通常）.png,RX
+fade_io>in
+
+msg>通常枠,off
+msg>通常枠,0,よく合いますね、旅の人よ。
+msg>通常枠,0,もしかすると私に何か用ですか？
+msg>通常枠,0,そんなはずありませんよね。
+evimg>PL_A,off
+evimg>PL_B,off
+fileset>./data/event/event0007.txt
+end>
+

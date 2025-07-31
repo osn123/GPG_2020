@@ -77,6 +77,7 @@ namespace  MyPG
 
 		//２Ｄカメラ矩形
 		ML::Box2D				camera2D;	//  ２Ｄスクロール制御用
+		map<string, float> evFlags; //
 	//----------------------------------------------
 	};
 }
